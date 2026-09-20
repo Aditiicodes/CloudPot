@@ -1,0 +1,8 @@
+# Only plots.py needs anything beyond the standard library.
+#
+# parse_cowrie.py is deliberately dependency-free: it is the script that runs
+# against raw, attacker-controlled log text, and it is the one you may want to
+# run on the sensor itself or on a machine with no virtualenv. Keeping its
+# dependency count at zero means there is no third-party parser in the path
+# between hostile input and your analysis.
+matplotlib>=3.7,<4.0

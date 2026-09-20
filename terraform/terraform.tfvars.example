@@ -1,0 +1,48 @@
+# Copy to terraform.tfvars and fill in. terraform.tfvars is gitignored:
+# admin_cidr is your home address and does not belong in a public repository.
+#
+#   cp terraform.tfvars.example terraform.tfvars
+
+# ---------------------------------------------------------------------------
+# Required - no defaults exist for these two, by design.
+# ---------------------------------------------------------------------------
+
+# Your public address, as a /32. Find it with: curl -s https://checkip.amazonaws.com
+# Terraform refuses to plan if this is 0.0.0.0/0. If your ISP rotates your
+# address you will need to re-apply; that is the intended friction.
+admin_cidr = "203.0.113.42/32"
+
+# Tagged onto every resource so an internet-exposed host in this account is
+# attributable to a human. See docs/SAFETY.md.
+owner_contact = "you@example.com"
+
+# ---------------------------------------------------------------------------
+# Recommended.
+# ---------------------------------------------------------------------------
+
+# Subscribed to the billing and telemetry-health alarms. You must click the
+# confirmation link AWS emails you, or the alarms fire into a void.
+alert_email = "you@example.com"
+
+# ---------------------------------------------------------------------------
+# Optional - defaults shown, uncomment to change.
+# ---------------------------------------------------------------------------
+
+# aws_region        = "us-east-1"   # Billing alarms only exist here.
+# project           = "cloudpot"
+# instance_type     = "t3.micro"
+# availability_zone = "us-east-1a"
+
+# The port the REAL sshd moves to during bootstrap. If you change this, the
+# admin security group follows automatically - but re-read docs/SETUP.md
+# first, because getting the bootstrap order wrong locks you out.
+# admin_ssh_port = 62222
+
+# What the attacker sees as the hostname. Keep it boring.
+# sensor_hostname = "svr-prod-01"
+
+# Pin this to a Cowrie release tag you have reviewed before a real run.
+# cowrie_ref = "master"
+
+# billing_alarm_threshold_usd = 20
+# log_retention_days          = 14

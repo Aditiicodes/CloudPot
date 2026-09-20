@@ -1,0 +1,8 @@
+root:x:0:
+daemon:x:1:
+sudo:x:27:ubuntu,deploy
+www-data:x:33:
+ssh:x:114:
+ubuntu:x:1000:
+deploy:x:1001:
+postgres:x:117:

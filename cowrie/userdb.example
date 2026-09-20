@@ -1,0 +1,108 @@
+# ===========================================================================
+# CloudPot - Cowrie credential database
+#
+# Copy to etc/userdb.txt on the sensor. Format is one rule per line:
+#
+#   username : uid : password
+#
+# with two special forms:
+#   *           matches anything
+#   !value      explicitly DENIES that value
+#
+# Rules are evaluated top to bottom; the first match wins.
+#
+# ---------------------------------------------------------------------------
+# WHY WEAK CREDENTIALS ARE THE CORRECT CHOICE HERE
+#
+# The instinct is to make the honeypot hard to get into. That instinct is
+# backwards for this sensor. A honeypot that never accepts a login produces
+# exactly one kind of data - failed authentication attempts - which tells you
+# who is knocking and what they are guessing, and nothing at all about what
+# they intended to do. Every interesting question this project asks lives on
+# the far side of a successful login: what commands run first, what
+# persistence is attempted, which URLs the payload stage reaches for, how long
+# the operator stays, whether it is a human or a script.
+#
+# So the credential set is chosen to match what mass SSH brute-force actually
+# sprays. These pairs come from the top of every public credential-stuffing
+# list; a bot working its dictionary hits one in its first few dozen attempts,
+# authenticates, and proceeds to the behaviour we want to observe. The weak
+# credentials are the aperture, not a weakness.
+#
+# The obvious alternative is a single wildcard line - accept every password
+# for every user. It is rejected here for two reasons. First, some botnets
+# validate: they retry with a deliberately absurd password, and a host that
+# accepts "asdkjhasd8712" as root is flagged as a honeypot and abandoned.
+# Second, accepting everything destroys the credential-frequency analysis -
+# every guess becomes a success and you lose the ability to say which
+# passwords the population is actually converging on.
+#
+# There is no risk in publishing this list: it grants access to an emulated
+# shell on a disposable host, and the real sshd is on another port behind a
+# single-address security group.
+# ===========================================================================
+
+# --- Explicit denials, evaluated first -------------------------------------
+# Refuse the handful of pairs that are so obviously bait that accepting them
+# is itself a honeypot tell, and refuse the sensor's own admin username so a
+# lucky guess never produces a session that looks like operator activity in
+# the data.
+cloudpot:x:!*
+honeypot:x:!*
+
+# --- root ------------------------------------------------------------------
+# root is the overwhelming majority of attempts against port 22. These are the
+# passwords that dominate every public brute-force dataset.
+root:x:123456
+root:x:root
+root:x:toor
+root:x:password
+root:x:admin
+root:x:1234
+root:x:12345
+root:x:1qaz@WSX
+root:x:P@ssw0rd
+root:x:qwerty
+root:x:changeme
+root:x:raspberry
+
+# --- admin / generic service accounts --------------------------------------
+admin:x:admin
+admin:x:admin123
+admin:x:password
+admin:x:1234
+
+# --- distribution default accounts ------------------------------------------
+# ubuntu/ubuntu is specifically worth accepting: it is what a bot expects to
+# work on a misconfigured cloud image, which is exactly the host this sensor
+# is pretending to be.
+ubuntu:x:ubuntu
+ubuntu:x:ubuntu123
+debian:x:debian
+centos:x:centos
+
+# --- application and appliance accounts -------------------------------------
+# These distinguish targeted scanning from generic spray. A bot that tries
+# oracle, postgres or git is running a list aimed at servers, not at consumer
+# routers, and that distinction shows up clearly in the credential analysis.
+user:x:user
+test:x:test
+test:x:123456
+oracle:x:oracle
+postgres:x:postgres
+mysql:x:mysql
+git:x:git
+deploy:x:deploy
+jenkins:x:jenkins
+docker:x:docker
+pi:x:raspberry
+ftp:x:ftp
+guest:x:guest
+support:x:support
+
+# --- default deny ----------------------------------------------------------
+# Anything not listed above fails authentication and is logged as
+# cowrie.login.failed. This line is what preserves the success/failure ratio
+# that makes credential-frequency analysis meaningful. Do not replace it with
+# a wildcard accept without re-reading the rationale at the top of this file.
+*:x:!*
