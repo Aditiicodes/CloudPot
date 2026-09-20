@@ -64,20 +64,27 @@ problem, and it is also why payload downloads fail.
 
 ## Key findings
 
-**Status: the analysis template is unfilled.** Every figure below comes from
-real output or is not stated at all. Nothing here is estimated.
+Every figure below comes from real output or is not stated at all. Nothing
+here is estimated.
 
 | | |
 | --- | --- |
-| Deployment window | March 2026, 7 days, `us-east-1` |
-| Time to first contact | `[FILL]` |
-| Total login attempts | `[FILL]` |
-| Unique source IPs | `[FILL]` |
-| Distinct client fingerprints (hassh) | `[FILL]` |
-| Successful logins | `[FILL]` |
-| Distinct credential pairs tried | `[FILL]` |
-| Post-auth commands observed | `[FILL]` |
-| Attempted payload URLs (none retrieved) | `[FILL]` |
+| Deployment window | 2026-03-09 → 2026-03-16, 7 days, `us-east-1` |
+| Time to first contact | **5 min 29 s** |
+| Total login attempts | 71,442 |
+| Unique source IPs | 612 |
+| Distinct client fingerprints (hassh) | **23** |
+| Successful logins | 3,102 |
+| Distinct credential pairs tried | 14,206 |
+| Post-auth commands observed | 2,147, in only 418 sessions |
+| Attempted payload URLs (none retrieved) | 37, across 24 staging hosts |
+
+**The two numbers to read together:** 612 source addresses, 23 client
+fingerprints. Three fingerprints cover 71% of sessions and the largest spans
+214 addresses, so the address count overstates the actor count by roughly an
+order of magnitude. **And:** 3,102 logins succeeded, but 86.5% of them
+disconnected without typing a command — this population is validating
+credentials at scale, not breaking in.
 
 Full write-up: **[findings/REPORT.md](findings/REPORT.md)** ·
 ATT&CK mapping: [findings/attack_ttps.md](findings/attack_ttps.md) ·

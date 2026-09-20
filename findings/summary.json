@@ -1,0 +1,126 @@
+{
+  "generated_by": "analysis/parse_cowrie.py",
+  "inputs": [
+    "findings/raw"
+  ],
+  "indicator_types": [
+    "ip",
+    "credential",
+    "username",
+    "url",
+    "hash",
+    "hassh"
+  ],
+  "parse": {
+    "files_read": 9,
+    "files_unreadable": 0,
+    "lines_read": 84391,
+    "events_parsed": 84217,
+    "lines_malformed": 112,
+    "lines_not_object": 0,
+    "lines_without_eventid": 62
+  },
+  "window": {
+    "first_event": "2026-03-09T03:52:41Z",
+    "last_event": "2026-03-16T03:11:58Z",
+    "days_with_events": 8,
+    "events_per_day": {
+      "2026-03-09": 8412,
+      "2026-03-10": 11204,
+      "2026-03-11": 9867,
+      "2026-03-12": 10331,
+      "2026-03-13": 21946,
+      "2026-03-14": 9455,
+      "2026-03-15": 8902,
+      "2026-03-16": 4100
+    }
+  },
+  "totals": {
+    "events": 84217,
+    "sessions": 3908,
+    "unique_source_ips": 612,
+    "unique_usernames": 1893,
+    "unique_credential_pairs": 14206,
+    "unique_attempted_payload_urls": 37,
+    "login_attempts": 71442,
+    "login_successes": 3102,
+    "commands_entered": 2147
+  },
+  "session_duration_seconds": {
+    "measured_sessions": 3871,
+    "p50": 2.41,
+    "p90": 14.86,
+    "max": 300.12
+  },
+  "payload_downloads": {
+    "policy": "blocked - egress restricted and Cowrie download limit set to 1 byte",
+    "attempts_logged": 41,
+    "unique_urls": 37,
+    "artifacts_retrieved": 0,
+    "hashes_observed": 0
+  },
+  "events_by_id": {
+    "cowrie.login.failed": 68340,
+    "cowrie.session.connect": 3908,
+    "cowrie.session.closed": 3908,
+    "cowrie.login.success": 3102,
+    "cowrie.client.version": 2401,
+    "cowrie.command.input": 1982,
+    "cowrie.direct-tcpip.request": 288,
+    "cowrie.command.failed": 165,
+    "cowrie.log.closed": 82,
+    "cowrie.session.file_download.failed": 41
+  },
+  "indicators_by_type": {
+    "ip": 612,
+    "credential": 14206,
+    "username": 1893,
+    "url": 37,
+    "hassh": 23,
+    "hash": 0
+  },
+  "top_source_ips": [
+    {"src_ip": "198.51.100.77", "events": 18412},
+    {"src_ip": "192.0.2.145", "events": 6203},
+    {"src_ip": "198.51.100.23", "events": 4881},
+    {"src_ip": "192.0.2.88", "events": 3427},
+    {"src_ip": "203.0.113.9", "events": 2994},
+    {"src_ip": "198.51.100.201", "events": 2660},
+    {"src_ip": "192.0.2.31", "events": 2118},
+    {"src_ip": "203.0.113.164", "events": 1905},
+    {"src_ip": "198.51.100.140", "events": 1644},
+    {"src_ip": "192.0.2.209", "events": 1402},
+    {"src_ip": "198.51.100.5", "events": 1307},
+    {"src_ip": "203.0.113.194", "events": 808},
+    {"src_ip": "203.0.113.52", "events": 792},
+    {"src_ip": "203.0.113.245", "events": 553},
+    {"src_ip": "192.0.2.60", "events": 492},
+    {"src_ip": "198.51.100.168", "events": 450},
+    {"src_ip": "203.0.113.203", "events": 427},
+    {"src_ip": "198.51.100.63", "events": 378},
+    {"src_ip": "203.0.113.248", "events": 374},
+    {"src_ip": "203.0.113.141", "events": 355}
+  ],
+  "top_credentials": [
+    {"credential": "root:123456789", "attempts": 1842},
+    {"credential": "root:letmein", "attempts": 1455},
+    {"credential": "root:root123", "attempts": 1288},
+    {"credential": "admin:123456", "attempts": 1164},
+    {"credential": "root:abc123", "attempts": 1033},
+    {"credential": "root:111111", "attempts": 967},
+    {"credential": "root:passw0rd", "attempts": 884},
+    {"credential": "root:1q2w3e4r", "attempts": 812},
+    {"credential": "root:system", "attempts": 744},
+    {"credential": "support:12345", "attempts": 698},
+    {"credential": "root:123456", "attempts": 612},
+    {"credential": "root:password", "attempts": 488},
+    {"credential": "root:root", "attempts": 401},
+    {"credential": "admin:admin", "attempts": 337},
+    {"credential": "root:1234", "attempts": 298},
+    {"credential": "root:admin", "attempts": 241},
+    {"credential": "ubuntu:ubuntu", "attempts": 196},
+    {"credential": "root:toor", "attempts": 154},
+    {"credential": "root:12345", "attempts": 121},
+    {"credential": "root:qwerty", "attempts": 98}
+  ]
+}
